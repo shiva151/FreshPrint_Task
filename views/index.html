@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>T-Shirt Designing</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.2/angular.js"></script>
+<script src="controller.js"></script>
+<script src="https://rawgit.com/kangax/fabric.js/master/dist/fabric.js" ></script>
+
+
+<style>
+.displyImages{
+    width: 43px;
+    height: 50px;
+}
+.displypreImages{
+    width: 24%;
+    height: 33%;
+}
+.mainImg{
+    width: 69%;
+    height: 72%;
+}
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #c2c2c2;
+}
+    img{width:500px; height:500px;}
+    canvas{
+        border: 1px solid black;
+        margin-left: 141px;
+        margin-top: 62px;
+    }
+
+    .canvas-bg {
+        position: absolute;
+    }
+    #c {
+        position: relative;
+    }
+    .final-button{
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 30%;
+
+    }
+</style>
+
+<body >
+
+<div ng-app="myapp" ng-controller="mycontroller">
+<div class="container">
+    <div class="col-md-12" style="background-color: rgba(0,0,0,0.05);height: -webkit-fill-available">
+        <h3 style="left: 50%;margin-left: 30%">Design Your own T-Shirt</h3>
+        <div class="row">
+            <div class="col-md-8">
+                <div id="canvas-wrapper" class="editor-area">
+                    <div class="canvas-bg-wrapper">
+                        <img class="canvas-bg mainImg" ng-src="{{inImg}}">
+                        <canvas width="236" height="265" id="c"></canvas>
+                    </div>
+                </div>
+                <button class="btn btn-success final-button" ng-click="uploadImage()"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                     Place Order</button>
+                <button class="btn btn-warning final-button" ng-click="redraw()"><i class="fa fa-eraser" aria-hidden="true"></i>
+                    Clear</button>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <br>
+                <b>Choose T-Shirt</b><br><br>
+                    <button class="btn" ng-click="changeImage('one')"> <img src="images/one.jpg" class="displyImages"></button>
+                    <button class="btn" ng-click="changeImage('two')"> <img src="images/two.jpg" class="displyImages"></button>
+                </div><br>
+                <div class="row">
+                    <b>Upload Multiple Images to Design</b><br><br>
+                    <label for="imgLoader" class="custom-file-upload">
+                        <i class="fa fa-file-image-o"></i> Click to Add an Image
+                    </label>
+                    <input id="imgLoader" type="file"/>
+                    <button class="custom-file-upload" ng-click="deleteObjects()"><i class="fa fa-trash-o"></i> Delete selected object(s)</button>
+                </div><br>
+                <div class="row">
+                <button class="custom-file-upload" type="button" ng-click="addText()"><i class="fa fa-text-width"></i>  Click to Add Text</button>
+                  <br><br>  <b>Font Color</b>
+                    <input type="color" value="" id="color" size="10">
+                </div>
+
+                <br><br>
+                <div class="row">
+                    <span><a id="imageSaver" style="cursor:pointer;">SaveImage To Local</a></span>
+                </div><br><br>
+                <div class="row">
+                    <b>Your Previous Saved Designs</b><br><br>
+                    <span ng-if="img.length ===0">You Don't have any saved designs</span>
+                    <span ng-repeat="x in img">
+                        <img class="displypreImages" ng-src="data:image/jpeg;base64,{{x.image}}" ng-click="loadImg(x.image)">
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+
+</body>
+</html>
